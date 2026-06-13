@@ -1,0 +1,20 @@
+# Secretos / credenciales
+.env
+client_secret*.json
+token.json
+*.pem
+
+# Salidas del flujo
+videos.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.python-version
+
+# OS / editores
+.DS_Store
+.idea/
+.vscode/
