@@ -7,9 +7,12 @@ que puede leer playlists privadas y borrar items.
 from __future__ import annotations
 
 import math
+import os
 import re
 from dataclasses import dataclass
 
+import google_auth_httplib2
+import httplib2
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
@@ -60,6 +63,25 @@ def parse_iso8601_duration_to_minutes(iso: str) -> int:
     return math.ceil(total_seconds / 60)
 
 
+def _resolve_ca_bundle() -> str | None:
+    """Devuelve un bundle de CA que incluya la CA del proxy del entorno, si la hay.
+
+    httplib2 (capa HTTP del cliente de Google) usa por defecto los certificados de
+    certifi, que NO contienen la CA del proxy de egress de algunos entornos
+    sandbox (Claude Code on the web). Preferimos un bundle del sistema que sí la
+    incluya. En local sin proxy, cualquiera de estos sirve igual; si ninguno
+    existe, devolvemos None y httplib2 usa su default.
+    """
+    for candidate in (
+        os.environ.get("REQUESTS_CA_BUNDLE"),
+        os.environ.get("SSL_CERT_FILE"),
+        "/etc/ssl/certs/ca-certificates.crt",
+    ):
+        if candidate and os.path.exists(candidate):
+            return candidate
+    return None
+
+
 def _build_service():
     """Construye el cliente autenticado de la YouTube Data API."""
     config.require_env()
@@ -71,8 +93,11 @@ def _build_service():
         token_uri=config.GOOGLE_TOKEN_URI,
         scopes=config.YOUTUBE_SCOPES,
     )
+    ca_bundle = _resolve_ca_bundle()
+    base_http = httplib2.Http(ca_certs=ca_bundle) if ca_bundle else httplib2.Http()
+    authed_http = google_auth_httplib2.AuthorizedHttp(creds, http=base_http)
     # cache_discovery=False evita warnings/escrituras en entornos efímeros.
-    return build("youtube", "v3", credentials=creds, cache_discovery=False)
+    return build("youtube", "v3", http=authed_http, cache_discovery=False)
 
 
 def _fetch_durations(service, video_ids: list[str]) -> dict[str, int]:
