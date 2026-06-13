@@ -46,16 +46,17 @@ NOTION_REMINDERS_DATASOURCE = "collection://c766b4e8-3188-4020-a99c-2b57cd3ef811
 NOTION_AGENT_PAGE_ID = "313d6d49-81de-8077-978c-df417d211e22"
 
 
-def round_up_to_block(duration_min: int) -> int | None:
+def round_up_to_block(duration_min: int) -> int:
     """Redondea la duración (min) al bloque permitido más pequeño que la contenga.
 
-    Ejemplos: 9->15, 24->30, 47->60. Devuelve None si excede el bloque mayor
-    (no cabe en ninguna ventana y debe posponerse).
+    Ejemplos: 9->15, 24->30, 47->60. Los videos de más de 60 min se topan en el
+    bloque mayor (60): se agendan como una sesión parcial de 60 min y el resto del
+    video no se contabiliza.
     """
     for block in BLOCK_SIZES_MIN:
         if duration_min <= block:
             return block
-    return None
+    return BLOCK_SIZES_MIN[-1]  # tope: video largo -> bloque de 60
 
 
 def require_env() -> None:

@@ -26,7 +26,7 @@ def _cmd_extract(args: argparse.Namespace) -> int:
     payload = []
     for v in videos:
         d = v.to_dict()
-        d["block_min"] = config.round_up_to_block(v.duration_min)  # None si >60
+        d["block_min"] = config.round_up_to_block(v.duration_min)  # >60 min -> 60
         payload.append(d)
 
     text = json.dumps(payload, ensure_ascii=False, indent=2)

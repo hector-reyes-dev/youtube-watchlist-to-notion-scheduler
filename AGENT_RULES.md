@@ -21,7 +21,7 @@ Un arreglo JSON (salida de `python -m src.main extract`), cada elemento:
 ```
 
 - `duration_min`: duración real del video, redondeada hacia arriba al minuto.
-- `block_min`: tamaño de bloque ya redondeado (`null` si el video dura > 60 min).
+- `block_min`: tamaño de bloque ya redondeado (siempre entre 15 y 60).
 
 ## Parámetros de agendado
 - **Zona horaria:** `America/Mexico_City`.
@@ -36,8 +36,9 @@ Un arreglo JSON (salida de `python -m src.main extract`), cada elemento:
   - `≤ 30 min` → bloque de **30**
   - `≤ 45 min` → bloque de **45**
   - `≤ 60 min` → bloque de **60**
-  - `> 60 min` → **no cabe** (ver "Casos borde").
-  - Ejemplos: 9→15, 24→30, 47→60.
+  - `> 60 min` → se topa en **60** (sesión parcial; el resto del video no se
+    contabiliza). El ítem se marca como "(parcial)".
+  - Ejemplos: 9→15, 24→30, 47→60, 77→60 (parcial).
 
 ## Algoritmo
 1. Ordena los videos en el orden en que vienen de la playlist (orden del usuario).
@@ -77,8 +78,9 @@ Por cada video agendado, crea una página en el data source
   la playlist para reintentarse la próxima corrida.
 
 ## Casos borde
-- **Video > 60 min:** no cabe en ninguna ventana → no se agenda, no se borra, y
-  se reporta para que el usuario lo divida o lo vea manualmente.
+- **Video > 60 min:** se agenda en un único bloque de 60 min (sesión parcial);
+  añade "(parcial)" al `Task` y deja la URL en `Notes`. El resto del video no se
+  contabiliza; el usuario decide si lo continúa en otra sesión.
 - **Sin huecos suficientes en el horizonte de días:** deja el sobrante en la
   playlist y repórtalo.
 - **`duration_min == 0`** (en vivo / sin duración resoluble): trátalo como caso a

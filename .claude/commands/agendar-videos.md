@@ -34,8 +34,9 @@ ni borres nada de la playlist: solo muestra la agenda propuesta.
 
 4. **Calcula la asignación** (día + ventana + hora de inicio) empaquetando
    cronológicamente. Muestra al usuario una tabla: título · duración · bloque ·
-   día · hora. Los que no quepan (sin hueco o `block_min` = null / duración 0)
-   van a una sección "Pospuestos" con el motivo.
+   día · hora. Marca con "(parcial)" los videos de más de 60 min (se agendan en
+   un bloque de 60). Los que no quepan (sin hueco esta semana, o duración 0) van
+   a una sección "Pospuestos" con el motivo.
 
 5. Si es **dry-run**, detente aquí.
 
