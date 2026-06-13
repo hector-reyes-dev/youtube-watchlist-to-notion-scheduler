@@ -11,13 +11,16 @@ ni borres nada de la playlist: solo muestra la agenda propuesta.
 
 ## Pasos
 
-1. **Instala dependencias** (si hiciera falta) y **extrae** la playlist:
+1. **Prepara el entorno y extrae** la playlist. Usa un **venv aislado** para
+   evitar los paquetes rotos del sistema (`cffi`/`cryptography`):
    ```bash
-   pip install -q -r requirements.txt
-   python -m src.main extract -o videos.json
+   python3 -m venv /tmp/ytvenv
+   /tmp/ytvenv/bin/pip install -q -r requirements.txt
+   /tmp/ytvenv/bin/python -m src.main extract -o videos.json
    ```
-   Luego lee `videos.json`. Si está vacío, reporta "no hay videos por agendar" y
-   termina.
+   Luego lee `videos.json`. Si está vacío (`[]`), reporta "no hay videos por
+   agendar" y termina. Usa el mismo `/tmp/ytvenv/bin/python` para el `delete` del
+   paso 7.
 
 2. **Lee las reglas** en `AGENT_RULES.md` y aplícalas al pie de la letra
    (días Mar–Dom, ventanas 09:00–10:00 / 12:00–13:00 / 16:00–16:30, redondeo por
@@ -49,7 +52,7 @@ ni borres nada de la playlist: solo muestra la agenda propuesta.
 
 7. **Borra de la playlist** SOLO los videos efectivamente agendados:
    ```bash
-   python -m src.main delete --ids <playlist_item_id...>
+   /tmp/ytvenv/bin/python -m src.main delete --ids <playlist_item_id...>
    ```
    No borres los pospuestos.
 
