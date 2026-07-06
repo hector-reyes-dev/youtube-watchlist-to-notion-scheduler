@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — YouTube Watchlist → Notion Scheduler</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 720px;
+    margin: 3rem auto;
+    padding: 0 1.25rem;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6e6e6; background: #121212; }
+    a { color: #8ab4f8; }
+    hr { border-color: #333; }
+  }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.1rem; margin-top: 1.75rem; }
+  ul { padding-left: 1.3rem; }
+  footer { margin-top: 3rem; font-size: 0.85rem; opacity: 0.7; }
+  hr { margin: 2rem 0; }
+  .updated { font-size: 0.85rem; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<h1>Política de Privacidad</h1>
+<p class="updated">Última actualización: julio de 2026</p>
+
+<p>
+<strong>YouTube Watchlist → Notion Scheduler</strong> ("la aplicación") es una
+herramienta de automatización de uso estrictamente personal, operada y usada
+únicamente por su desarrollador, Héctor Reyes, sobre su propia cuenta de
+Google/YouTube y su propio workspace de Notion. No está disponible para el
+público ni tiene otros usuarios.
+
+Esta página describe qué datos de Google accede la aplicación, con qué
+propósito, y cómo se tratan.
+</p>
+
+<h2>1. Qué datos se acceden</h2>
+<p>
+La aplicación usa la <strong>YouTube Data API v3</strong>, con el scope
+<code>https://www.googleapis.com/auth/youtube.force-ssl</code>, exclusivamente
+para:
+</p>
+<ul>
+  <li>Leer los videos guardados en una playlist privada llamada
+      <strong>"Por ver"</strong>: título, URL, duración e identificador del
+      elemento de la playlist (<code>playlist_item_id</code>).</li>
+  <li>Eliminar de esa misma playlist los videos que ya fueron agendados
+      exitosamente en el paso siguiente.</li>
+</ul>
+<p>
+No se accede a ningún otro dato de la cuenta de Google del usuario (no se leen
+correos, contactos, archivos de Drive, ni ningún otro contenido de YouTube
+fuera de la playlist mencionada).
+</p>
+
+<h2>2. Qué se hace con esos datos</h2>
+<p>
+Por cada video leído, la aplicación crea un recordatorio equivalente (título,
+enlace al video y horario propuesto) en la base de Notion privada del propio
+desarrollador, evitando choques con su Google Calendar y con recordatorios ya
+existentes. Una vez agendado, el video se borra de la playlist de YouTube.
+</p>
+
+<h2>3. Dónde se almacenan los datos</h2>
+<p>
+La aplicación no mantiene una base de datos propia ni almacena copias de los
+datos de YouTube entre ejecuciones. En cada corrida, los datos se leen de la
+YouTube Data API, se transforman en memoria, y se escriben directamente en el
+workspace de Notion del propio usuario. Al terminar la ejecución, no queda
+ningún dato retenido por la aplicación.
+</p>
+
+<h2>4. Con quién se comparten los datos</h2>
+<p>
+<strong>Con nadie.</strong> Los datos no se venden, no se comparten con
+terceros, no se usan con fines publicitarios y no se usan para entrenar
+modelos de machine learning. El único destino de los datos es el propio
+workspace de Notion del usuario que autorizó el acceso.
+</p>
+
+<h2>5. Cumplimiento de la Política de Datos de Usuario de Google API Services</h2>
+<p>
+El uso que esta aplicación hace de los datos obtenidos a través de las APIs de
+Google cumple con la
+<a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>,
+incluyendo los requisitos de Uso Limitado ("Limited Use").
+</p>
+
+<h2>6. Cómo revocar el acceso</h2>
+<p>
+El usuario puede revocar el acceso de esta aplicación a su cuenta de Google en
+cualquier momento desde
+<a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.
+</p>
+
+<h2>7. Cambios a esta política</h2>
+<p>
+Si esta política cambia, se actualizará esta misma página con una nueva fecha
+de "última actualización".
+</p>
+
+<hr>
+
+<footer>
+  Contacto: <a href="mailto:hectordevx@gmail.com">hectordevx@gmail.com</a><br>
+  <a href="./index.html">← Volver al inicio</a>
+</footer>
+
+</body>
+</html>
