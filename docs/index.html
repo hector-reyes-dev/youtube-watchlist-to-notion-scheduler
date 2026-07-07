@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Watchlist → Notion Scheduler</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 720px;
+    margin: 3rem auto;
+    padding: 0 1.25rem;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6e6e6; background: #121212; }
+    a { color: #8ab4f8; }
+    code { background: #1e1e1e; }
+    hr { border-color: #333; }
+  }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  code { background: #f2f2f2; padding: 0.15em 0.4em; border-radius: 4px; font-size: 0.9em; }
+  ul { padding-left: 1.3rem; }
+  footer { margin-top: 3rem; font-size: 0.85rem; opacity: 0.7; }
+  hr { margin: 2rem 0; }
+</style>
+</head>
+<body>
+
+<h1>📺 → 🗓️ YouTube Watchlist → Notion Scheduler</h1>
+
+<p><em>Personal automation project. Not a public product; used only by its
+developer/owner.</em></p>
+
+<p>
+Este proyecto es una rutina de automatización personal que, una vez por semana,
+lee los videos guardados en una playlist privada de YouTube llamada
+<strong>"Por ver"</strong> y los agenda como recordatorios en el Notion personal
+del propietario, según la duración de cada video y la disponibilidad en su
+calendario. Al terminar, borra de la playlist los videos que ya quedaron
+agendados.
+</p>
+
+<h2>¿Qué hace exactamente?</h2>
+<ul>
+  <li>Lee título, URL, duración e identificador de cada video en la playlist
+      "Por ver" del propietario, usando la YouTube Data API v3.</li>
+  <li>Crea un recordatorio equivalente en la base de Notion privada del
+      propietario para cada video, en un horario libre.</li>
+  <li>Borra de la playlist únicamente los videos que quedaron agendados con
+      éxito.</li>
+</ul>
+
+<h2>¿Quién lo usa?</h2>
+<p>
+Es una herramienta de un solo usuario: la ejecuta y la mantiene su propio
+desarrollador, sobre su propia cuenta de YouTube y su propio workspace de
+Notion. No se distribuye a terceros ni tiene otros usuarios.
+</p>
+
+<h2>Código fuente</h2>
+<p>
+El código es público:
+<a href="https://github.com/hector-reyes-dev/youtube-watchlist-to-notion-scheduler">github.com/hector-reyes-dev/youtube-watchlist-to-notion-scheduler</a>
+</p>
+
+<h2>Privacidad</h2>
+<p>
+Consulta la <a href="./privacy.html">Política de Privacidad</a> para el detalle
+de qué datos se acceden y cómo se usan.
+</p>
+
+<hr>
+
+<footer>
+  Contacto: <a href="mailto:hectordevx@gmail.com">hectordevx@gmail.com</a>
+</footer>
+
+</body>
+</html>

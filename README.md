@@ -86,6 +86,29 @@ con periodicidad **semanal, domingos 17:00 (America/Mexico_City)**.
 
 ---
 
+### 6. (Recomendado) Verifica la app ante Google
+
+El scope `youtube.force-ssl` es un scope **restringido/sensible**. Mientras la
+app no complete la verificación de Google, el `GOOGLE_REFRESH_TOKEN` puede
+dejar de funcionar cada 1–2 semanas (aunque el estado de publicación diga
+"En producción"), obligando a regenerarlo a mano. Para eliminar ese problema:
+
+1. **Activa GitHub Pages** en este repo: *Settings → Pages → Source: Deploy
+   from a branch → Branch: `main` /`docs`*. Esto publica:
+   - Homepage: `https://hector-reyes-dev.github.io/youtube-watchlist-to-notion-scheduler/`
+   - Política de privacidad: `.../privacy.html`
+2. En **Google Cloud Console → APIs & Services → OAuth consent screen**,
+   agrega esas dos URLs en *Application home page* y
+   *Application privacy policy link*, y agrega `github.io` como dominio
+   autorizado.
+3. Desde la misma pantalla, inicia el flujo de **verificación** ("Publicar
+   app" / "Prepare for verification"). Google pedirá justificar el scope
+   `youtube.force-ssl` (usar el texto de `docs/privacy.html` como base) y,
+   posiblemente, un video corto mostrando el consentimiento OAuth y el uso del
+   scope.
+4. La revisión puede tardar de días a un par de semanas. Hasta que se
+   apruebe, sigue aplicando la limitación de tokens de corta duración.
+
 ## Uso manual / pruebas
 
 ```bash
@@ -111,6 +134,8 @@ src/youtube_client.py                Cliente YouTube: listar/borrar + duración
 src/main.py                          CLI: extract / delete
 src/config.py                        Variables, ventanas, redondeo, IDs
 scripts/get_refresh_token.py         Helper OAuth (uso único)
+docs/index.html, docs/privacy.html   Homepage y política de privacidad (GitHub Pages,
+                                      para la verificación OAuth de Google)
 requirements.txt  .env.example  CLAUDE.md
 ```
 
