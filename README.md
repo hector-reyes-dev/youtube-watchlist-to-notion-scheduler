@@ -94,12 +94,20 @@ dejar de funcionar cada 1–2 semanas (aunque el estado de publicación diga
 "En producción"), obligando a regenerarlo a mano. Para eliminar ese problema:
 
 1. **Activa GitHub Pages** en este repo: *Settings → Pages → Source: Deploy
-   from a branch → Branch: `main` /`docs`*. Esto publica:
-   - Homepage: `https://hector-reyes-dev.github.io/youtube-watchlist-to-notion-scheduler/`
+   from a branch → Branch: `main` /`docs`*, con **dominio personalizado**
+   (campo *Custom domain*) apuntando a un subdominio propio — ver `docs/CNAME`.
+   Requiere un registro DNS `CNAME` en el proveedor del dominio:
+   `<subdominio>` → `hector-reyes-dev.github.io`. Esto publica:
+   - Homepage: `https://youtube-scheduler.hectorcreative.dev/`
    - Política de privacidad: `.../privacy.html`
-2. En **Google Cloud Console → APIs & Services → OAuth consent screen**,
-   agrega esas dos URLs en *Application home page* y
-   *Application privacy policy link*, y agrega `github.io` como dominio
+
+   > Un subdominio de `github.io` **no sirve** para la verificación de marca
+   > de Google: pide que el dominio esté "registrado a tu nombre", y
+   > `github.io` es de GitHub, Inc. Se necesita un dominio propio (aunque sea
+   > como subdominio de uno que ya tengas).
+2. En **Google Cloud Console → Google Auth Platform → Branding**, agrega esas
+   dos URLs en *Página principal de la aplicación* y *Vínculo a la Política de
+   Privacidad*, y agrega el dominio raíz (`hectorcreative.dev`) como dominio
    autorizado.
 3. Desde la misma pantalla, inicia el flujo de **verificación** ("Publicar
    app" / "Prepare for verification"). Google pedirá justificar el scope
